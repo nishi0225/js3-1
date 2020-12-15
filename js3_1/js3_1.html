@@ -15,13 +15,13 @@
     <!--ラジオボタン-->
     <section>
       <input type="radio" name="status" value="All" checked>すべて
-      <input type="radio" name="status" value="Working">作業中
-      <input type="radio" name="status" value="Done">完了
+      <input type="radio" name="status" value="WorkingTask" id="Working">作業中
+      <input type="radio" name="status" value="DoneTask" id="Done">完了
     </section>
     
     <!--リスト表示,ステータス-->
     <section>
-      <table class="addTaskTarget">
+      <table id="addTaskTarget">
         <tr>
           <th>ID</th>
           <th>コメント</th>
@@ -35,9 +35,9 @@
       <h1>新規タスクの追加</h1>
       <form>
         <label>
-          <input type="text" class="inputValue">
+          <input type="text" id="inputValue">
         </label>
-        <button type="button" class="addTaskButton">追加</button>
+        <button type="button" id="addTaskButton">追加</button>
       </form>
     </section>
   </div>
