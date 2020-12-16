@@ -57,29 +57,9 @@ addTaskButton.addEventListener('click', () => {
   addButton(newTable,removeButton,statusButton);
   inputValue.value = '';
   input.focus();
-
-  //削除Buttonの処理
-  const deleteTask = (deleteTr) => {
-    const tableTr = deleteTr.target.closest('tr');
-    if (tableTr) {
-      tableTr.remove();
-    }
-  }
-  removeButton.addEventListener('click', deleteTask, false);
-
-  //statusButtonの表示切替
-  statusButton.addEventListener('click',(state) => {
-    if (statusButton.textContent === '作業中') {
-      statusButton.textContent = '完了';
-      const doneTask = state.target.parentNode;
-      doneTask.className = 'doneTask';
-    } else {
-      statusButton.textContent = '作業中';
-      const workTask = state.target.parentNode;
-      workTask.className = 'working';
-    }
-  });
 });
+
+
 
 
 
