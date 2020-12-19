@@ -3,64 +3,59 @@
 const input = document.getElementById('inputValue');
 const addTaskButton = document.getElementById('addTaskButton');
 const addTaskTarget = document.getElementById('addTaskTarget');
-//radioButtoを取得
-const radioWorking = document.getElementById('Working');
-const radioDone = document.getElementById('Done');
 
 //入力値を格納する配列を作成
 const taskList = [];
-//index番号を作成
-let tdId = 0;
 
-//id,taskを作成
-const addTask = (task,id,newTable) => {
-  const tdIdElement = document.createElement('td');
+//task,idを追加する関数を作成
+const addTask = (task, id) => {
   const tdTaskElement = document.createElement('td');
-  //taskListに入力値を追加
-  const todo = {
-    task: tdTaskElement,
-    status: '作業中',
-  };
-  taskList.push(todo);
-  //要素内(文字)を作成
+  const tdIdElement = document.createElement('td');
   tdIdElement.textContent = id;
   tdTaskElement.textContent = task;
-  newTable.appendChild(tdIdElement);
-  newTable.appendChild(tdTaskElement);
-  addTaskTarget.appendChild(newTable);
+  const newId = tdIdElement;
+  const newTask = tdTaskElement;
+  showTask(newTask,newId);
 }
-
-//Buttonを作成
-const addButton = (newTable,removeButton,statusButton) => {
-  const tdstasuButton = document.createElement('td');
-  const tdRemoveButton = document.createElement('td');
-  //Button名を作成
-  statusButton.textContent = '作業中';
-  removeButton.textContent = '削除';
-  //td要素にButtonを追加
-  tdstasuButton.appendChild(statusButton);
-  tdRemoveButton.appendChild(removeButton);
-  //trにtd追加,表示
-  newTable.appendChild(tdstasuButton);
-  newTable.appendChild(tdRemoveButton);
-  addTaskTarget.appendChild(newTable);
-}
-
-//追加Buttonをクリックした際の処理
-addTaskButton.addEventListener('click', () => {
-  const task = inputValue.value;
-  const newTable = document.createElement('tr');
-  const removeButton = document.createElement('button');
-  const statusButton = document.createElement('button');
-
-  addTask(task,tdId++,newTable);
-  addButton(newTable,removeButton,statusButton);
-  inputValue.value = '';
+//task,Buttonを表示する関数を作成
+const showTask = (newTask, newId) => {
+  const newTr = document.createElement('tr'); 
+  newTr.appendChild(newId);
+  newTr.appendChild(newTask);
+  //Buttonを表示するtdを作成
+  const tdStatusButton = document.createElement('td');
+  const tdDeleteButton = document.createElement('td');
+  //作成したtd要素にButtonを作成する関数を子要素として追加
+  tdStatusButton.appendChild(createStatusButton());
+  tdDeleteButton.appendChild(createDeleteButton());
+  //tr要素へButton要素を追加
+  newTr.appendChild(tdStatusButton);
+  newTr.appendChild(tdDeleteButton);
+  addTaskTarget.appendChild(newTr);
+  //入力値を初期化,フォーカス
+  input.value = '';
   input.focus();
-});
-
-
-
-
-
-
+}
+//状態Buttonを作成する関数
+const createStatusButton = () => {
+  const statusButton = document.createElement('button');
+  statusButton.textContent = '作業中';
+  return statusButton;
+}
+//削除Buttonを作成する関数
+const createDeleteButton = () => {
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = '削除';
+  return deleteButton;
+}
+//追加Buttonクリック時の処理
+addTaskButton.addEventListener('click', () => {
+  const todo = input.value;
+  const todos = {
+    id: taskList.length,
+    task: todo,
+    status: '作業中'
+  }
+  taskList.push(todos);
+  addTask(todo,todos.id);
+})
